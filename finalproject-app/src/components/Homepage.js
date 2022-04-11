@@ -19,19 +19,6 @@ function App() {
     dictionaryAPI();
   }, []);
 
-  // Homepage
-  /*
-  <div className="...">
- <Wordofday></Wordofday>
-  <Boomark></Boomark>
-
-  // Router - nav bar
-  <Searchbar> // press enter
-    <router>
-      <Results />
-    </router>
-  </Searchbar>
-  </div>*/
 }
 
 export default App;
