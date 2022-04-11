@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function App() {
+function Dictionary() {
   return (
     <div>
       <Dictionary/>
