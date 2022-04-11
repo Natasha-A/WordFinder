@@ -8,7 +8,7 @@ function Homepage() {
   return (
     <div>
       <Container>
-        <img src="./assets/bookIcon.png"/>
+        <img src="./src/assets/bookIcon.png" alt="Book"/>
       </Container>
     </div>
   );
