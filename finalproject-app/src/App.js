@@ -2,9 +2,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import Bookmarks from "./components/Bookmarks.js";
-
 import Homepage from './components/Homepage.js';
-
 import Dictionary from './components/Dictionary.js';
 
 import './Styles.css';
