@@ -9,4 +9,4 @@ function Bookmarks() {
   );
 }
 
-export default Booksmarks;
+export default Bookmarks;
