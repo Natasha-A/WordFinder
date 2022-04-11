@@ -1,12 +1,9 @@
-import axios from "axios";
-import React, { useEffect } from "react";
-
-function App() {
+function Homepage() {
   return (
     <div>
-      
+      Home
     </div>
   );
 }
 
-export default App;
+export default Homepage;
