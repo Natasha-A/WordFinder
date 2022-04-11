@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import { BsSearch } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
 
+// practice bootstrap tonight!
 
 function Homepage() {
   return (

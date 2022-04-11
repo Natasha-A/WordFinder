@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 function Bookmarks() {
   return (
     <div>
-      Bookmarks
+        <h1 className="mb-3">Bookmarks</h1>
     </div>
   );
 }

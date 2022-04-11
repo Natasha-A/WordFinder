@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 function Dictionary() {
   return (
     <div>
-      Dictionary
+        <h1 className="mb-3">Definition</h1>
     </div>
   );
 }
