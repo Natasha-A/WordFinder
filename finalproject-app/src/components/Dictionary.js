@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 
+
 function Dictionary() {
   return (
     <div>
-      <Dictionary/>
+      Dictionary
     </div>
   );
 }
 
+/*
 function Dictionary() {
   const [word, Word] = useState({});
   const [definition, Definition] = useState({});
@@ -27,7 +29,7 @@ function Dictionary() {
   </div>
   )
 }
-
+*/
 /*Alternative FETCH request method using Axios 
   const dictKey = 'db581e8e-4d30-455a-a8b9-d1de2f4dc84c';
   const thesKey = '1b9cfecf-a383-4f09-93e2-745e7003f274';
@@ -46,4 +48,4 @@ function Dictionary() {
     dictionaryAPI();
   }, []); */
 
-export default App;
+export default Dictionary;

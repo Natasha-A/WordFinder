@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 function Bookmarks() {
   return (
     <div>
-      
+      Bookmarks
     </div>
   );
 }
