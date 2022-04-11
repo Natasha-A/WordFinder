@@ -10,7 +10,7 @@ function Dictionary() {
 }
 
 
-function DictionaryFetch() {
+/*function DictionaryFetch() {
   const [word, Word] = useState({});
   const [definition, Definition] = useState({});
 
@@ -28,7 +28,7 @@ function DictionaryFetch() {
 
   </div>
   )
-}
+}*/
 
 /*Alternative FETCH request method using Axios 
   const dictKey = 'db581e8e-4d30-455a-a8b9-d1de2f4dc84c';
