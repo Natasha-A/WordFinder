@@ -6,8 +6,26 @@ import Form from "react-bootstrap/Form";
 import { BsSearch } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Homepage() {
+  {/*useState for word input field rendering*/}
+  const [word, setWord] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+  event.preventDefault(); // prevents from refreshing screen
+  console.log(word)
+
+  // error checking for word input 
+  // i.e.) check if word exists and has no spaces  
+  const trimmedWord = word.trim();
+  if (!trimmedWord || (trimmedWord.split(' ').length > 1)) return;
+  navigate(`/search/${word}`); // push the value to defintions comp
+
+  }
+
   return (
       <Container className=" text-center p-4 mt-4">
 
@@ -19,8 +37,13 @@ function Homepage() {
 
           {/* Textbox Form*/}
           <Stack direction="horizontal" gap={0}>
-            <Button variant="secondary shadow-sm"><BsSearch /></Button>
-            <Form.Control className="input me-auto shadow" placeholder="Type your word here..." />
+            <Button variant="secondary shadow-sm" type="submit" onSubmit={handleSubmit}><BsSearch /></Button>
+
+            <Form Style="width:100%" onSubmit={handleSubmit}>
+              <Form.Control className="input me-auto shadow" placeholder="Type your word here..." value={word} onChange={event => setWord(event.target.value)}/>
+            </Form>
+
+
           </Stack>
 
           {/* Box Container*/}
