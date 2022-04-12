@@ -4,20 +4,21 @@ import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import Bookmarks from "./components/Bookmarks.js";
 import Homepage from './components/Homepage.js';
 import Dictionary from './components/Dictionary.js';
-
+import Container from 'react-bootstrap/Container';
 import './styles.scss';
 
 function App() {
   return (
     <div>
-        <Routes>
+      <Container className='text-center p-4 mt-4'>
+      <Container className="m-12 .container-lg mt-2" Style="width: 70%;">
+      <Routes>
           <Route path='/' element={<Homepage />}/>
            <Route exact path='/bookmarks' element={<Bookmarks />} />
-
-             {/*Since search is dynamic, we use the param to load the 
-             correct defintion/synonyms */}
             <Route path="/search/:word" element={<Dictionary/>}/>
         </Routes>
+        </Container>
+      </Container>
     </div>
   );
 }

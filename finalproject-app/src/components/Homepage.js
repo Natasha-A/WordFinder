@@ -27,9 +27,7 @@ function Homepage() {
   }
 
   return (
-      <Container className=" text-center p-4 mt-4">
-
-        <Container className="m-12 .container-lg " Style="width: 70%">
+     <div>
           <img src="/assets/bookIcon.png"/>
           
           {/* Title */}
@@ -72,9 +70,7 @@ function Homepage() {
               </div>  
             </section>
           </Stack>
-        </Container>
-   
-    </Container>
+      </div>
   );
 }
 

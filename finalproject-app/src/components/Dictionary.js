@@ -1,10 +1,28 @@
 import { useState, useEffect } from 'react';
-
+import Container from 'react-bootstrap/Container';
+import Stack from 'react-bootstrap/Stack';
+import { BsSearch } from "react-icons/bs";
+import { BsArrowLeftShort } from "react-icons/bs";
+import { BsFillBookmarkFill } from "react-icons/bs";
+import { BsPlayFill } from "react-icons/bs"
+import Button from 'react-bootstrap/Button';
+import { useParams } from 'react-router-dom';
 
 function Dictionary() {
+  const { word } = useParams(); // get word from search request
+  console.log(word);
+
   return (
     <div>
-        <h1 className="mb-3">Definition</h1>
+        <Stack className="justify-content-between pb-3" direction="horizontal">
+          <Button><BsArrowLeftShort /></Button>
+          <Button><BsFillBookmarkFill /></Button>
+        </Stack>
+
+        <Stack className="justify-content-between p-4" direction="horizontal" Style="background-color: white">
+              <h2 Style="color: #9078D6"> { word }</h2> 
+              <Button><BsPlayFill /></Button>   
+          </Stack>
     </div>
   );
 }
