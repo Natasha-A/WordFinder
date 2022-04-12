@@ -1,0 +1,44 @@
+
+body {
+  font-family: 'Mulish', sans-serif;
+  background-color: #D9CBFF;
+}
+
+img {
+  height: 150px;
+  width: 150px;
+}
+
+h2 {
+  color: #9078D6;
+  font-weight: 900;
+}
+
+h1 {
+  font-weight: 900;
+}
+
+section {
+  text-align: left; background-color:white; border-radius: 15px;
+  color:#343a40;
+  border: none;
+
+}
+
+#bookmarks {
+
+  font-size: 1.2em;
+  color: #343a40;
+}
+
+.btn-secondary {
+  background-color: #9078D6 !important;
+  border: none;
+  border-radius: 1em 0 0 1em !important
+}
+
+.input {
+  border-radius: 0 1em 1em 0 !important;
+  border: none;
+  color:#343a40;
+}

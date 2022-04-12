@@ -5,7 +5,7 @@ import Bookmarks from "./components/Bookmarks.js";
 import Homepage from './components/Homepage.js';
 import Dictionary from './components/Dictionary.js';
 
-import './Styles.css';
+import './styles.scss';
 
 function App() {
   return (
