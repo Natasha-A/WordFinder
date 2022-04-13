@@ -6,23 +6,24 @@ import { BsArrowLeftShort } from "react-icons/bs";
 import { BsFillBookmarkFill } from "react-icons/bs";
 import { BsPlayFill } from "react-icons/bs"
 import Button from 'react-bootstrap/Button';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function Dictionary() {
   const { word } = useParams(); // get word from search request
+  const navigate = useNavigate();
 
   console.log(word);
 
   return (
     <div>
-        <Stack className="justify-content-between pb-3" direction="horizontal">
-          <Button><BsArrowLeftShort /></Button>
-          <Button><BsFillBookmarkFill /></Button>
+        <Stack className=" justify-content-between pb-3" direction="horizontal">
+          <Button className="customButton" Style="font-size:2.5em" ><BsArrowLeftShort onClick={() => {navigate('../')}}/></Button>
+          <Button className="btn customButton"><BsFillBookmarkFill /></Button>
         </Stack>
 
-        <Stack className="justify-content-between p-4" direction="horizontal" Style="background-color: white">
-              <h2 Style="color: #9078D6"> { word }</h2> 
-              <Button><BsPlayFill /></Button>   
+        <Stack className="customCard justify-content-between border p-4 h-50 font-weight-bolder shadow" direction="horizontal" Style="align-items: center; background-color: white">
+              <h2 Style="color: #9078D6;"> { word }</h2> 
+              <Button className="btn customButton " Style="background-color:#9078D6; width: 2em; height:2em;" ><BsPlayFill /></Button>   
           </Stack>
     </div>
   );
