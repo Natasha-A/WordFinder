@@ -28,6 +28,10 @@ function Dictionary() {
   );
 }
 
+/*
+ ********** Example on how to fetch information from json **********
+function displayDictionary(json) {
+
   const dictionaryAPI = async() => {
     try {
       const data=await axios.get('https://www.dictionaryapi.com/api/v3/references/collegiate/json/voluminous?key=' + word);
@@ -37,23 +41,21 @@ function Dictionary() {
     }
   };
 
-  // called every time our variable changes
+      // called every time our variable changes
   useEffect(() => {
     dictionaryAPI();
   }, []);
 
-/*
- ********** Example on how to fetch information from json **********
-function displayInfo(json) {
   // extract into 
   // return 
-  
+  return (
   <div>
     for (i=0; i < json.length; i++) {
       json[i].word
       json[i].phonetic
     }
-  </div>
+  </div>);
+
 }
 
 function displaySynonyms(word) {
@@ -76,10 +78,16 @@ function displaySynonyms(word) {
     }
  
   </div>
+
+    // called every time our variable changes
+  useEffect(() => {
+    dictionaryAPI();
+  }, []);
+
 }
 */
 
-  function Audio(){
+  function Audio() {
     //comment
   }
 
