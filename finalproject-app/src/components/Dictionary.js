@@ -79,5 +79,9 @@ function displaySynonyms(word) {
 }
 */
 
-export default Dictionary;
+  function Audio(){
+    //comment
+  }
 
+export default Dictionary;
+//comment
