@@ -19,6 +19,7 @@ h1 {
   font-weight: 900;
 }
 
+
 section {
   text-align: left; 
   background-color:white; 
@@ -100,4 +101,9 @@ section {
 .btn-primary:active {
   box-shadow: none;
   border: none;
+}
+
+.subtitle {
+  font-weight: 800;
+  text-transform: capitalize;
 }
