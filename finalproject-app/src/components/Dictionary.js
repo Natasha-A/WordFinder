@@ -10,13 +10,16 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner';
 
-function Dictionary() {
+const Dictionary=({bookmarks,
+   getBookmark, 
+  deleteBookmark}) => {
   const { word } = useParams(); // get word from search request
   const navigate = useNavigate(); // navigate using back arrow 
   const [definitions, setDefintions] = useState([]); // display data 
   const [exist, setExist] = useState(true) // check if word exists in dictionary
   const [audio, setAudio] = useState(null);
 
+  const Bookmarked = Object.keys(bookmarks).includes(word)
 
   console.log(definitions);
   // called every time value we are observing the values - on load
