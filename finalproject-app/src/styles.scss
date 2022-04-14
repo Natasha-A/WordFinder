@@ -12,17 +12,29 @@ img {
 h2 {
   color: #9078D6;
   font-weight: 900;
+  text-transform: capitalize;
 }
 
 h1 {
   font-weight: 900;
 }
 
+
 section {
-  text-align: left; background-color:white; border-radius: 15px;
+  text-align: left; 
+  background-color:white; 
+  border-radius: 15px;
   color:#343a40;
   border: none;
 
+}
+
+.customCard {
+  text-align: left; 
+  background-color:white; 
+  border-radius: 15px;
+  color:#343a40;
+  border: none;
 }
 
 #bookmarks {
@@ -34,7 +46,9 @@ section {
 .btn-secondary {
   background-color: #9078D6 !important;
   border: none;
-  border-radius: 1em 0 0 1em !important
+  border-radius: 1em 0 0 1em !important;
+  outline: none;
+  box-shadow: none;
 }
 
 .input {
@@ -43,3 +57,53 @@ section {
   color:#343a40;
 }
 
+.customButton {
+
+  background-color: rgba(0,0,0,0);
+  border: none;
+  font-size: 20px;
+  text-align: center;
+  outline: none;
+  box-shadow: none;
+}
+
+.customButton:hover {
+  background-color: rgba(0,0,0,0);
+  outline: none;
+  box-shadow: none;
+}
+
+.customButton:focus {
+  background-color: rgba(0,0,0,0);
+  outline: none;
+  box-shadow: none;
+  border: none;
+
+
+}
+
+.customButton:active {
+  background-color: rgba(0,0,0,0);
+  text-shadow: 4px 4px 4px #00000000;
+  outline: none;
+  box-shadow: none;
+  border: none;
+
+}
+
+.btn:active {
+  outline: none;
+  box-shadow: none;
+  border: none;
+
+}
+
+.btn-primary:active {
+  box-shadow: none;
+  border: none;
+}
+
+.subtitle {
+  font-weight: 800;
+  text-transform: capitalize;
+}

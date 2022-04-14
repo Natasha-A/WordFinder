@@ -20,7 +20,7 @@ function Homepage() {
 
   // error checking for word input 
   // i.e.) check if word exists and has no spaces  
-  const trimmedWord = word.trim();
+  const trimmedWord = word.trim().toLowerCase();
   if (!trimmedWord || (trimmedWord.split(' ').length > 1)) return;
   navigate(`/search/${word}`); // push the value to defintions comp
 
@@ -35,7 +35,7 @@ function Homepage() {
 
           {/* Textbox Form*/}
           <Stack direction="horizontal" gap={0}>
-            <Button variant="secondary shadow-sm" type="submit" onSubmit={handleSubmit}><BsSearch /></Button>
+            <Button variant="secondary shadow-sm" aria-pressed="false" type="submit" onSubmit={handleSubmit}><BsSearch /></Button>
 
             <Form Style="width:100%" onSubmit={handleSubmit}>
               <Form.Control className="input me-auto shadow" placeholder="Type your word here..." value={word} onChange={event => setWord(event.target.value)}/>
@@ -46,7 +46,7 @@ function Homepage() {
 
           {/* Box Container*/}
           <Stack direction="vertical" gap={2} Style="height: vh;">  
-          <section className="border p-4 mt-4 h-50 font-weight-bolder shadow">
+          <section className=" border p-4 mt-4 h-50 font-weight-bolder shadow">
 
             {/* Word of Day*/}
             <h2 Style="color: #9078D6">Word of Day</h2>
@@ -62,7 +62,7 @@ function Homepage() {
             </section>
 
             {/* Bookmarks */}
-            <section className="border p-4 mt-4 h-50 font-weight-bold font-weight-bolder shadow">
+            <section className="border p-4 mt-4 h-50 font-weight-bold font-weight-bolder shadow customCard">
               <h2 Style="color: #9078D6">Bookmarks</h2>
               <div id="bookmarks">
               <b>Bookmark 1</b>      
