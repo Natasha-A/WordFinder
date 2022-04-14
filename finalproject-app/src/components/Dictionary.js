@@ -101,8 +101,6 @@ function Dictionary() {
                           </div>
                         )}
                         </div>
-                        
-
                   </Container>
                 )}
             </Fragment>
