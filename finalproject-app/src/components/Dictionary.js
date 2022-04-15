@@ -20,6 +20,8 @@ const Dictionary=({bookmarks,addBookmark, removeBookmark}) => {
   // boolean to store if definition is bookmarked to avoid duplicates
   const isBookmarked = Object.keys(bookmarks).includes(word);
 
+  // bookmarks 
+  
   console.log(definitions);
   // called every time value we are observing the values - on load
   useEffect(() => {
