@@ -10,16 +10,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner';
 
-const Dictionary=({bookmarks,
-   getBookmark, 
-  deleteBookmark}) => {
+const Dictionary=({bookmarks,addBookmark, removeBookmark}) => {
   const { word } = useParams(); // get word from search request
   const navigate = useNavigate(); // navigate using back arrow 
   const [definitions, setDefintions] = useState([]); // display data 
   const [exist, setExist] = useState(true) // check if word exists in dictionary
   const [audio, setAudio] = useState(null);
 
-  const Bookmarked = Object.keys(bookmarks).includes(word)
+  // boolean to store if definition is bookmarked to avoid duplicates
+  const isBookmarked = Object.keys(bookmarks).includes(word);
 
   console.log(definitions);
   // called every time value we are observing the values - on load
@@ -76,7 +75,14 @@ const Dictionary=({bookmarks,
     <div>
         <Stack className="justify-content-between pb-3" direction="horizontal">
           <Button className="customButton" Style="font-size:2.5em" ><BsArrowLeftShort onClick={() => {navigate('../')}}/></Button>
-          <Button className="btn customButton"><BsFillBookmarkFill /></Button>
+
+
+          <Button className="btn customButton" onClick={() => isBookmarked ? removeBookmark(word) : addBookmark(word, definitions)}>
+            { isBookmarked ? <BsFillBookmarkFill className="customButtonBookmark"/> :
+            <BsFillBookmarkFill className="customButton"/>
+            }
+          </Button> 
+  
         </Stack>
         <Stack className="customCard justify-content-between border p-4 h-50 font-weight-bolder shadow" direction="horizontal" Style="align-items: center; background-color: white">
               <h2 Style="color: #9078D6;"> { word }</h2> 
