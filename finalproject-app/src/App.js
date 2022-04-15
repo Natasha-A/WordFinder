@@ -33,15 +33,16 @@ function App() {
   })
 
   // practice passing data to child
-  const parentToChild = () => {
-    setData("This is a parent comp to child comp");
+  function parentToChild() {
+    return setData("This is a parent comp to child comp");
   }
+
   return (
     <div>
       <Container className='text-center p-4 mt-4'>
       <Container className="xs-12 sm-8 md-5 lg-3 m-12 .container-lg mt-2" Style="width: 70%;">
       <Routes>
-          <Route path='/' element={<Homepage parentToChild={data}/>}/>
+          <Route path='/' element={<Homepage parentToChild={JSON.stringify(bookmarks)}/>}/>
            <Route exact path='/bookmarks' element={<Bookmarks bookmarks={bookmarks} />} />
             <Route path="/search/:word" element={<Dictionary bookmarks={bookmarks} addBookmark={addBookmark} removeBookmark={removeBookmark}/>}/>
         </Routes>

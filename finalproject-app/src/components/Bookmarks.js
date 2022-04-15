@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 const Bookmarks = ({ bookmarks }) => {
   return (
-    <section>
+    <div>
         <Stack className=" pb-2 justify-content-between b" direction="horizontal">
         <Link to="/">
           <Button className="btn customButton" Style="font-size:2em">
@@ -33,7 +33,7 @@ const Bookmarks = ({ bookmarks }) => {
           : <h3 Style="margin-top: 1.4em; font-size: 1.4em; font-weight:900; color: #9078D6; align:center">No bookmarks found</h3>
 
       }
-    </section>
+    </div>
   );
 }
 
