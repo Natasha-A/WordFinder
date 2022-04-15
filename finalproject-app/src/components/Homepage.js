@@ -78,7 +78,7 @@ function Homepage( { parentToChild }) {
              <div Style="display: flex; justify-content: space-between">
                <div></div>
               <Link to="/bookmarks">
-                <Button Style=" border:2px solid red">View All</Button>
+                <Button Style="color:white" variant="secondary shadow-sm" >View All</Button>
               </Link>
              </div>
         
