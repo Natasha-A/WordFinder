@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Bookmarks from "./Bookmarks";
 
-function Homepage( { parentToChild }) {
+function Homepage( { recentBookmarks }) {
   {/*useState for word input field rendering*/}
   const [word, setWord] = useState("");
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ function Homepage( { parentToChild }) {
 
   }
 
-  const jsonText = JSON.parse(parentToChild);
+  const jsonText = JSON.parse(recentBookmarks);
   const jsonArray = Object.keys(jsonText).slice(-3);
   console.log(jsonArray)
 
