@@ -21,32 +21,40 @@ const Dictionary=({bookmarks,addBookmark, removeBookmark}) => {
   const isBookmarked = Object.keys(bookmarks).includes(word);
 
   // bookmarks 
-  
+
   console.log(definitions);
   // called every time value we are observing the values - on load
+
+  const updateState = data => {
+          setDefintions(data);
+          // set phonetics value
+          const phonetics = data[0].phonetics;
+          if(!phonetics.length) return; // if no audio exists, no return value
+          var url = phonetics[0].audio.replace('//ssl', 'https://ssl');
+         
+          // if audio not found in first element
+          if (phonetics[0].audio.length === 0) {
+            url = phonetics[1].audio;
+         }
+  
+          setAudio(new Audio(url));
+  }
+
   useEffect(() => {
     const fetchDefinition = async () => {
       try {
         const resp = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-        setDefintions(resp.data);
-        // set phonetics value
-        const phonetics = resp.data[0].phonetics;
-        if(!phonetics.length) return; // if no audio exists, no return value
-        var url = phonetics[0].audio.replace('//ssl', 'https://ssl');
-       
-        // if audio not found in first element
-        if (phonetics[0].audio.length === 0) {
-          url = phonetics[1].audio;
-       }
-
-        setAudio(new Audio(url));
+        updateState(resp.data);
 
       } catch(err) {
         setExist(false);
         console.log(err);
       }
     }
-    fetchDefinition();
+
+    if (!isBookmarked) fetchDefinition()
+    else updateState(bookmarks[word])
+
   }, []);
 
 

@@ -8,28 +8,29 @@ import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Bookmarks from "./Bookmarks";
 
-function Homepage() {
+function Homepage( { parentToChild }) {
   {/*useState for word input field rendering*/}
   const [word, setWord] = useState("");
   const navigate = useNavigate();
 
+  console.log(parentToChild);
   const handleSubmit = (event) => {
   event.preventDefault(); // prevents from refreshing screen
-  console.log(word)
 
   // error checking for word input 
   // i.e.) check if word exists and has no spaces  
   const trimmedWord = word.trim().toLowerCase();
   if (!trimmedWord || (trimmedWord.split(' ').length > 1)) return;
-  navigate(`/search/${word}`); // push the value to defintions comp
+  navigate(`/search/${trimmedWord}`); // push the value to defintions comp
 
   }
 
   return (
      <div>
           <img src="/assets/bookIcon.png"/>
-          
           {/* Title */}
           <h1 className="mb-3"Style="color:white"> Word Finder</h1>
 
@@ -62,12 +63,12 @@ function Homepage() {
             </section>
 
             {/* Bookmarks */}
-            <section className="border p-4 mt-4 h-50 font-weight-bold font-weight-bolder shadow customCard">
-              <h2 Style="color: #9078D6">Bookmarks</h2>
-              <div id="bookmarks">
-              <b>Bookmark 1</b>      
-              <p><b>Bookmark 2</b></p>
-              </div>  
+            <section className="border p-4 mt-4 h-50 font-weight-bold font-weight-bolder shadow ">
+            <div>{parentToChild}</div>
+
+              <Link to="/bookmarks">
+                <Button Style="align-self:right">View All</Button>
+              </Link>
             </section>
           </Stack>
       </div>

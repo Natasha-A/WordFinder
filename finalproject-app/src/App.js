@@ -1,6 +1,6 @@
 import axios from "axios";
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
-//import Bookmarks from "./components/Bookmarks.js";
+import Bookmarks from "./components/Bookmarks.js";
 import Homepage from './components/Homepage.js';
 import Dictionary from './components/Dictionary.js';
 import Container from 'react-bootstrap/Container';
@@ -8,6 +8,8 @@ import './styles.scss';
 import {useState, useEffect} from 'react';
 
 function App() {
+  // practice hook 
+  const [data, setData] = useState('');
 
   // store bookmark state in the state as an array
   const [bookmarks, setBookmarks] = useState(JSON.parse(localStorage.getItem('bookmarks')) || '' );
@@ -17,7 +19,6 @@ function App() {
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
   }, [bookmarks]);
 
-  console.log(bookmarks);
   // add bookmark to bookmarks, update state by passing definitions from 'Definitions.js comp'
   // store old state using oldBookmarks and update value
   const addBookmark = (word, definitions) => setBookmarks(oldBookmarks => ({...oldBookmarks, [word] : definitions
@@ -31,13 +32,17 @@ function App() {
     return temp; // gets passed as the new state
   })
 
+  // practice passing data to child
+  const parentToChild = () => {
+    setData("This is a parent comp to child comp");
+  }
   return (
     <div>
       <Container className='text-center p-4 mt-4'>
-      <Container className="m-12 .container-lg mt-2" Style="width: 70%;">
+      <Container className="xs-12 sm-8 md-5 lg-3 m-12 .container-lg mt-2" Style="width: 70%;">
       <Routes>
-          <Route path='/' element={<Homepage />}/>
-           {/*<Route exact path='/bookmarks' element={<Bookmarks />} />*/}
+          <Route path='/' element={<Homepage parentToChild={data}/>}/>
+           <Route exact path='/bookmarks' element={<Bookmarks bookmarks={bookmarks} />} />
             <Route path="/search/:word" element={<Dictionary bookmarks={bookmarks} addBookmark={addBookmark} removeBookmark={removeBookmark}/>}/>
         </Routes>
         </Container>
