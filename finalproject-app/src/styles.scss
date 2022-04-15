@@ -100,13 +100,15 @@ section {
   outline: none;
   box-shadow: none;
   border: none;
+  border-style: none;
 
 }
 
 .btn:active {
   outline: none;
-  box-shadow: none;
-  border: none;
+  box-shadow: none!important;
+  border: none !important;
+  border-style: none !important;
 
 }
 
