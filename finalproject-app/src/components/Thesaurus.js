@@ -2,12 +2,14 @@ import { useState, useEffect, Fragment } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Stack from 'react-bootstrap/Stack';
+import Button from 'react-bootstrap/Button';
+import { BsArrowLeftShort } from "react-icons/bs";
 
 
 function Thesaurus() {
   const { word } = useParams(); // word input
   const [results, setResults] = useState([ ]); // words to display  
-  //const [exist, setExist] = useState(true) // check if word exists 
+  const navigate = useNavigate(); // navigate using back arrow 
 
   const options = { //api info
     method: 'GET',
@@ -32,8 +34,14 @@ function Thesaurus() {
 
   return (
     <div>
-      <h1>Word: {word}</h1>
+       <Stack className="justify-content-between pb-3" direction="horizontal">
+          <Button className="customButton" Style="font-size:2.5em" ><BsArrowLeftShort onClick={() => {navigate('../')}}/></Button>
+          </Stack>
+             <Stack className="customCard justify-content-between border p-4 h-50 font-weight-bolder shadow" direction="horizontal" Style="align-items: center; background-color: white">
+              <h2 Style="color: #9078D6;"> { word }</h2> 
+          </Stack>
       <div>
+      <hr className="mt-3 mb-3" Style="color:#9078D6; display: idx === 0 ? 'none' : 'block'"/>
           {results.map((definition, idx) => 
             <Stack className="customCard justify-content-between border p-4 h-50 font-weight-bolder shadow" direction="horizontal" Style="align-items: center; background-color: white">
                 <div><b>Definition</b>: {definition.definition}</div>
