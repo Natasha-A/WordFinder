@@ -26,6 +26,13 @@ function Homepage( { recentBookmarks }) {
 
   }
 
+  const onSynonyms = (event) => { // for synonyms search
+    event.preventDefault(); 
+    const trimmedWord = word.trim().toLowerCase();
+    if (!trimmedWord || (trimmedWord.split(' ').length > 1)) return;
+    navigate(`/synonyms/${trimmedWord}`); 
+  }
+
   const jsonText = JSON.parse(recentBookmarks);
   const jsonArray = Object.keys(jsonText).slice(-3);
   console.log(jsonArray)
@@ -43,6 +50,8 @@ function Homepage( { recentBookmarks }) {
             <Form Style="width:100%" onSubmit={handleSubmit}>
               <Form.Control className="input me-auto shadow" placeholder="Type your word here..." value={word} onChange={event => setWord(event.target.value)}/>
             </Form>
+            
+            <button onClick={onSynonyms}>Syn</button> 
 
 
           </Stack>

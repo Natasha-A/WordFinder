@@ -3,6 +3,7 @@ import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import Bookmarks from "./components/Bookmarks.js";
 import Homepage from './components/Homepage.js';
 import Dictionary from './components/Dictionary.js';
+import Thesaurus from './components/Thesaurus.js'; // for synonyms 
 import Container from 'react-bootstrap/Container';
 import './styles.scss';
 import {useState, useEffect} from 'react';
@@ -38,6 +39,7 @@ function App() {
           <Route path='/' element={<Homepage recentBookmarks={JSON.stringify(bookmarks)}/>}/>
            <Route exact path='/bookmarks' element={<Bookmarks bookmarks={bookmarks} />} />
             <Route path="/search/:word" element={<Dictionary bookmarks={bookmarks} addBookmark={addBookmark} removeBookmark={removeBookmark}/>}/>
+            <Route path='/synonyms/:word' element={<Thesaurus />} /> 
         </Routes>
         </Container>
       </Container>
