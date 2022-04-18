@@ -10,7 +10,7 @@ import { useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Bookmarks from "./Bookmarks";
-import moment from "moment";
+//import moment from "moment";
 
 function Homepage( { recentBookmarks }) {
   {/*useState for word input field rendering*/}
