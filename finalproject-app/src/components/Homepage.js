@@ -16,6 +16,7 @@ function Homepage( { recentBookmarks }) {
   {/*useState for word input field rendering*/}
   const [word, setWord] = useState("");
   const [wordOfDay, setWordOfDay] = useState("");
+  const [defWOD, setDefWOD] = useState("");
 
   const navigate = useNavigate();
   const handleSubmit = (event) => {
@@ -42,44 +43,31 @@ function Homepage( { recentBookmarks }) {
 
 
   // fetch word of day API 
-    const fetchWordDay = async () => {
+  const fetchWordDay = async () => {
       try {
         const resp = await axios.get(`https://random-word-api.herokuapp.com/word`);
         setWordOfDay(resp.data[0]);
+        console.log(wordOfDay);
+
       } catch(err) {
         console.log(err);
       }
+
+      try {
+        const resp = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordOfDay}`);
+        setDefWOD(resp.data);
+        
+        console.log(defWOD);
+      } catch(err) {
+        console.log(err);
+        
+      }
     }
 
-   // load and refresh word of day 
-    useEffect(() => {
-      wordOfDayRefresh()
-  }, []); 
 
-
-  // time stamp between 24 word refresh 
-  function wordOfDayRefresh() {
-    var now = moment();
-    var currentDate = now.format('MMMM D YYYY'); 
-    var nextDay = now.add(1, 'days').format('MMMM D YYYY'); 
-
-    if (window.localStorage.getItem('currentDate') != currentDate) {
-        setTimeout(() => void {}, 10000);
-        console.log("Its a new day!")
-        setWordOfDay(window.localStorage.getItem('wordOfDay'));
-        window.localStorage.setItem('currentDate', currentDate);
-
-        // fetch new word to store in local storage 
-        fetchWordDay();
-        window.localStorage.setItem('wordOfDay', wordOfDay);
-        console.log(window.localStorage.getItem('wordOfDay'));
-
-    }  else {
-      console.log("Still today!")
-      setWordOfDay(window.localStorage.getItem('wordOfDay'));
-      console.log(window.localStorage.getItem('wordOfDay'));
-    }
-  }
+function fetchDefintion() {
+  fetchWordDay();
+}
 
   return (
      <div>
@@ -104,11 +92,16 @@ function Homepage( { recentBookmarks }) {
           <section className=" border p-4 mt-4 h-50 font-weight-bolder shadow">
 
             {/******* Word of Day Comp ********/}
-            <h2 Style="color: #9078D6">            {wordOfDay}</h2>
-              <b Style="font-size:20px">Sample</b>
 
-                {/* Definition */}
-               <p>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è considerato il testo segnaposto standard sin dal sedicesimo secolo, quando un anonimo tipografo prese una cassetta di caratteri e li assemblò per preparare un testo campione. È sopravvissuto non sol.</p>
+            {/* Map out array of elements */}
+            <h2 Style="color: #9078D6">Word of Day</h2>
+
+            <div>
+              <b Style="font-size:20px">{wordOfDay}</b>
+            </div>
+
+                {/* display def associate with random word */}
+               <p>{defWOD.word}</p>
 
                 {/* Example */}
               <div className="border-start border-3 " Style="margin-left:10px; padding-left:10px;">
@@ -139,8 +132,6 @@ function Homepage( { recentBookmarks }) {
               <Button className="customButton mt-1" Style="font-size:1.2em; background-color:#9078D6;">View All</Button>
               </Link>
              </div>
-        
-
             </section>
           </Stack>
       </div>
