@@ -44,7 +44,7 @@ function Thesaurus() {
       <hr className="mt-3 mb-3" Style="color:#9078D6; display: idx === 0 ? 'none' : 'block'"/>
           {results.map((definition, idx) => 
             <Stack className="customCard justify-content-between border p-4 h-50 font-weight-bolder shadow" direction="horizontal" Style="align-items: center; background-color: white">
-                <div><b>Definition</b>: {definition.definition}</div>
+                <div><b>Definition</b>: {definition.definition}</div> <br></br>
                 {definition.synonyms &&
                     <span><b>Synonyms</b>: {definition.synonyms.map(synonym => <span>{synonym}</span>)}</span>
                 }
