@@ -1,9 +1,9 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import "../styles.scss";
 import Form from "react-bootstrap/Form";
-import { BsSearch } from "react-icons/bs";
+import { BsSearch, BsWindowSidebar } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
 import { useState, Fragment } from 'react';
@@ -14,7 +14,8 @@ import Bookmarks from "./Bookmarks";
 function Homepage( { recentBookmarks }) {
   {/*useState for word input field rendering*/}
   const [word, setWord] = useState("");
-  const [wordOfDay, setWordOfDay] = useState([]);
+  const [wordOfDay, setWordOfDay] = useState("");
+  const [wdDef, setwdDef] = useState([]);
 
   const navigate = useNavigate();
   const handleSubmit = (event) => {
@@ -39,22 +40,45 @@ function Homepage( { recentBookmarks }) {
   const jsonText = JSON.parse(recentBookmarks);
   const jsonArray = Object.keys(jsonText).slice(-3);
 
+
+  // fetch word of day API 
+    const fetchWordDay = async () => {
+      try {
+        const resp = await axios.get(`https://random-word-api.herokuapp.com/word`);
+        setWordOfDay(resp.data[0]);
+      } catch(err) {
+        console.log(err);
+      }
+    }
+
+   // load store word of day 
+    useEffect(() => {
+      wordOfDayRefresh()
+  }, []); 
+
+
+  // time stamp between 24 word refresh 
+  function wordOfDayRefresh() {
+    var currentTime = new Date();
+    
+    console.log(currentTime);
+  }
+
   return (
      <div>
           <img src="/assets/bookIcon.png"/>
           {/* Title */}
-          <h1 className="mb-3"Style="color:white"> Word Finder</h1>
+          <h1 className="mb-3"Style="color:white"> Word Finder </h1>
 
           {/* Textbox Form*/}
           <Stack direction="horizontal" gap={0}>
-            <Button variant="secondary shadow-sm" aria-pressed="false" type="submit" onClick={handleSubmit}><BsSearch /></Button>
+            <Button variant="secondary shadow-sm" aria-pressed="false" type="submit" onClick={handleSubmit} ><BsSearch /></Button>
 
             <Form Style="width:100%" onSubmit={handleSubmit}>
               <Form.Control className="input me-auto shadow" placeholder="Type your word here..." value={word} onChange={event => setWord(event.target.value)}/>
             </Form>
             
             <button onClick={onSynonyms}>Syn</button> 
-
 
           </Stack>
 
@@ -63,7 +87,7 @@ function Homepage( { recentBookmarks }) {
           <section className=" border p-4 mt-4 h-50 font-weight-bolder shadow">
 
             {/******* Word of Day Comp ********/}
-            <h2 Style="color: #9078D6">Word of Day</h2>
+            <h2 Style="color: #9078D6">            {wordOfDay}</h2>
               <b Style="font-size:20px">Sample</b>
 
                 {/* Definition */}
@@ -73,6 +97,10 @@ function Homepage( { recentBookmarks }) {
               <div className="border-start border-3 " Style="margin-left:10px; padding-left:10px;">
                 <p>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è considerato il testo segnaposto standard sin dal sedicesimo secolo, quando un anonimo tipografo prese una cassetta di caratteri e li assemblò per preparare un testo campione. È sopravvissuto non sol.</p>
               </div>
+              <div Style="display: flex; justify-content: space-between">
+               <div></div>
+              <Button className="customButton mt-1" Style="font-size:1.2em; background-color:#9078D6;" onClick={() => {fetchWordDay()}}>Generate Word</Button>
+             </div>
             </section>
             {/* Bookmarks */}
             <section className="border p-4 mt-4 mb- h-50 font-weight-bold font-weight-bolder shadow ">
