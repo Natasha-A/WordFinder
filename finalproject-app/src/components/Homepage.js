@@ -16,7 +16,6 @@ function Homepage( { recentBookmarks }) {
   {/*useState for word input field rendering*/}
   const [word, setWord] = useState("");
   const [wordOfDay, setWordOfDay] = useState("");
-  const [wdDef, setwdDef] = useState([]);
 
   const navigate = useNavigate();
   const handleSubmit = (event) => {
@@ -52,7 +51,7 @@ function Homepage( { recentBookmarks }) {
       }
     }
 
-   // load store word of day 
+   // load and refresh word of day 
     useEffect(() => {
       wordOfDayRefresh()
   }, []); 
@@ -61,17 +60,25 @@ function Homepage( { recentBookmarks }) {
   // time stamp between 24 word refresh 
   function wordOfDayRefresh() {
     var now = moment();
-    var currentDate = now.format('MMMM D YYYY'); // 18
-    var nextDay = now.add(1, 'days').format('MMMM D YYYY'); // 19
+    var currentDate = now.format('MMMM D YYYY'); 
+    var nextDay = now.add(1, 'days').format('MMMM D YYYY'); 
 
-    setWordOfDay(window.localStorage.getItem('wordOfDay'));
-
-    if (window.localStorage.getItem('currentDate') != nextDay) {
-        console.log("Its a new day.")
+    if (window.localStorage.getItem('currentDate') != currentDate) {
+        setTimeout(() => void {}, 10000);
+        console.log("Its a new day!")
         setWordOfDay(window.localStorage.getItem('wordOfDay'));
-        window.localStorage.setItem('currentDate', nextDay);
-    }    
-    // create a t
+        window.localStorage.setItem('currentDate', currentDate);
+
+        // fetch new word to store in local storage 
+        fetchWordDay();
+        window.localStorage.setItem('wordOfDay', wordOfDay);
+        console.log(window.localStorage.getItem('wordOfDay'));
+
+    }  else {
+      console.log("Still today!")
+      setWordOfDay(window.localStorage.getItem('wordOfDay'));
+      console.log(window.localStorage.getItem('wordOfDay'));
+    }
   }
 
   return (
