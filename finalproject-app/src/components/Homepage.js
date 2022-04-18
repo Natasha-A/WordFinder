@@ -45,7 +45,7 @@ function Homepage( { recentBookmarks }) {
 
           {/* Textbox Form*/}
           <Stack direction="horizontal" gap={0}>
-            <Button variant="secondary shadow-sm" aria-pressed="false" type="submit" onSubmit={handleSubmit}><BsSearch /></Button>
+            <Button variant="secondary shadow-sm" aria-pressed="false" type="submit" onClick={handleSubmit}><BsSearch /></Button>
 
             <Form Style="width:100%" onSubmit={handleSubmit}>
               <Form.Control className="input me-auto shadow" placeholder="Type your word here..." value={word} onChange={event => setWord(event.target.value)}/>
@@ -78,16 +78,16 @@ function Homepage( { recentBookmarks }) {
 
              {/* Map out array of elements */}
              { jsonArray.map(word => 
-             <Link Style="text-decoration:none" to={`/search/${word}`}>
+             <Link Style="text-decoration:none; color:#b19fe8;" to={`/search/${word}`}>
                <Container>
-                 <h5 Style="text-transform: capitalize; margin-bottom:0.5em;">{word}</h5>
+                 <h5 class="bookmarks" Style="text-transform: capitalize; margin-bottom:0.4em;font-size:1.3em; font-weight:600">{word}</h5>
                </Container>
                </Link>
              )}
              <div Style="display: flex; justify-content: space-between">
                <div></div>
               <Link to="/bookmarks">
-                <Button Style="color:white" variant="secondary shadow-sm" >View All</Button>
+              <Button className="customButton mt-2" Style="font-size:1em; background-color:#9078D6;">View All</Button>
               </Link>
              </div>
         
