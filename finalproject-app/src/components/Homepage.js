@@ -10,6 +10,7 @@ import { useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Bookmarks from "./Bookmarks";
+import moment from "moment";
 
 function Homepage( { recentBookmarks }) {
   {/*useState for word input field rendering*/}
@@ -59,9 +60,18 @@ function Homepage( { recentBookmarks }) {
 
   // time stamp between 24 word refresh 
   function wordOfDayRefresh() {
-    var currentTime = new Date();
-    
-    console.log(currentTime);
+    var now = moment();
+    var currentDate = now.format('MMMM D YYYY'); // 18
+    var nextDay = now.add(1, 'days').format('MMMM D YYYY'); // 19
+
+    setWordOfDay(window.localStorage.getItem('wordOfDay'));
+
+    if (window.localStorage.getItem('currentDate') != nextDay) {
+        console.log("Its a new day.")
+        setWordOfDay(window.localStorage.getItem('wordOfDay'));
+        window.localStorage.setItem('currentDate', nextDay);
+    }    
+    // create a t
   }
 
   return (
