@@ -12,7 +12,6 @@ function App() {
 
   // store bookmark state in the state as an array
   const [bookmarks, setBookmarks] = useState(JSON.parse(localStorage.getItem('bookmarks')) || '' );
-
   // useEffect to update local storage every time we bookmark or change a bookmark
   useEffect(() => {
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));

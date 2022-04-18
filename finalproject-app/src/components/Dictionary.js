@@ -76,7 +76,6 @@ const Dictionary=({bookmarks,addBookmark, removeBookmark}) => {
           <Spinner animation="border"/>
           
         </div>
-  
    )
  
   }
