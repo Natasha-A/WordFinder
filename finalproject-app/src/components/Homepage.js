@@ -14,6 +14,8 @@ import Bookmarks from "./Bookmarks";
 function Homepage( { recentBookmarks }) {
   {/*useState for word input field rendering*/}
   const [word, setWord] = useState("");
+  const [wordOfDay, setWordOfDay] = useState([]);
+
   const navigate = useNavigate();
   const handleSubmit = (event) => {
   event.preventDefault(); // prevents from refreshing screen
@@ -33,9 +35,9 @@ function Homepage( { recentBookmarks }) {
     navigate(`/synonyms/${trimmedWord}`); 
   }
 
+  // display recent bookmarks (i.e. last 3)
   const jsonText = JSON.parse(recentBookmarks);
   const jsonArray = Object.keys(jsonText).slice(-3);
-  console.log(jsonArray)
 
   return (
      <div>
@@ -60,7 +62,7 @@ function Homepage( { recentBookmarks }) {
           <Stack direction="vertical" gap={2} Style="height: vh;">  
           <section className=" border p-4 mt-4 h-50 font-weight-bolder shadow">
 
-            {/* Word of Day*/}
+            {/******* Word of Day Comp ********/}
             <h2 Style="color: #9078D6">Word of Day</h2>
               <b Style="font-size:20px">Sample</b>
 
@@ -73,21 +75,23 @@ function Homepage( { recentBookmarks }) {
               </div>
             </section>
             {/* Bookmarks */}
-            <section className="border p-4 mt-4 h-50 font-weight-bold font-weight-bolder shadow ">
+            <section className="border p-4 mt-4 mb- h-50 font-weight-bold font-weight-bolder shadow ">
             <h2>Recent Bookmarks</h2>
 
              {/* Map out array of elements */}
              { jsonArray.map(word => 
              <Link Style="text-decoration:none; color:#b19fe8;" to={`/search/${word}`}>
                <Container>
-                 <h5 class="bookmarks" Style="text-transform: capitalize; margin-bottom:0.4em;font-size:1.3em; font-weight:600">{word}</h5>
+                 <ul>
+                 <li><h5 class="bookmarks" Style="text-transform: capitalize; margin-bottom:0.4em;font-size:1.3em; font-weight:600">{word}</h5></li>
+                 </ul>
                </Container>
                </Link>
              )}
              <div Style="display: flex; justify-content: space-between">
                <div></div>
               <Link to="/bookmarks">
-              <Button className="customButton mt-2" Style="font-size:1em; background-color:#9078D6;">View All</Button>
+              <Button className="customButton mt-1" Style="font-size:1.2em; background-color:#9078D6;">View All</Button>
               </Link>
              </div>
         
