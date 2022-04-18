@@ -20,7 +20,8 @@ function Homepage( { recentBookmarks }) {
 
   const navigate = useNavigate();
   const handleSubmit = (event) => {
-  event.preventDefault(); // prevents from refreshing screen
+  event.preventDefault(); 
+  // prevents from refreshing screen
 
   // error checking for word input 
   // i.e.) check if word exists and has no spaces  
@@ -53,10 +54,22 @@ function Homepage( { recentBookmarks }) {
         console.log(err);
       }
 
+      // try {
+      //   const resp = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordOfDay}`);
+      //   setDefWOD(resp.data);
+        
+      //   console.log(defWOD);
+      // } catch(err) {
+      //   console.log(err);
+        
+      // }
+    }
+
+
+    const fetchWordDesc = async () => {
       try {
         const resp = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordOfDay}`);
-        setDefWOD(resp.data);
-        
+        setDefWOD(resp.date[0]);
         console.log(defWOD);
       } catch(err) {
         console.log(err);
@@ -104,12 +117,13 @@ function fetchDefintion() {
                <p>{defWOD.word}</p>
 
                 {/* Example */}
-              <div className="border-start border-3 " Style="margin-left:10px; padding-left:10px;">
+              {<div className="border-start border-3 " Style="margin-left:10px; padding-left:10px;">
                 <p>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è considerato il testo segnaposto standard sin dal sedicesimo secolo, quando un anonimo tipografo prese una cassetta di caratteri e li assemblò per preparare un testo campione. È sopravvissuto non sol.</p>
-              </div>
+              </div> }
               <div Style="display: flex; justify-content: space-between">
                <div></div>
               <Button className="customButton mt-1" Style="font-size:1.2em; background-color:#9078D6;" onClick={() => {fetchWordDay()}}>Generate Word</Button>
+              <Button className="customButton mt-1" Style="font-size:1.2em; background-color:#9078D6;" onClick={() => {fetchWordDesc()}}>Generate Definition</Button>
              </div>
             </section>
             {/* Bookmarks */}
