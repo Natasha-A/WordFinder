@@ -80,18 +80,19 @@ function Homepage({ recentBookmarks }) {
     if (error === "Request failed with status code 404") {
       output = "Sorry, no definition found.";
       return (
-        <div>
-          <div className="pb-1 subtitle" Style="font-size:1.3em;color:">
-            {wordOfDay}
-          </div>          
+        <div> 
+          <div className="subtitle" Style="font-size:1.3em;">
+            {wdDef[0].word}
+          </div>
           <div Style="color:#949396; font-size:1.1em">{output}</div>
+          
         </div>
       )
     } else {
       return (
         <div>
           <div className="subtitle" Style="font-size:1.3em;">
-            {wordOfDay}
+          {wdDef[0].word}
           </div>
           {wdDef.map((def, idx) => 
             <Fragment key={idx}>
