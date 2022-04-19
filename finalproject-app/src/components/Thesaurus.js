@@ -1,5 +1,6 @@
 import { useState, useEffect, Fragment } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
 import axios from 'axios';
 import Stack from 'react-bootstrap/Stack';
 import Button from 'react-bootstrap/Button';
@@ -43,12 +44,12 @@ function Thesaurus() {
       <div>
       <hr className="mt-3 mb-3" Style="color:#9078D6; display: idx === 0 ? 'none' : 'block'"/>
           {results.map((definition, idx) => 
-            <Stack className="customCard justify-content-between border p-4 h-50 font-weight-bolder shadow" direction="horizontal" Style="align-items: center; background-color: white">
+             <Container className="customCard justify-content-between border p-4 mt-4 h-50 font-weight-bolder shadow" Style="color: #949396; align-items: center; background-color: white;">
                 <div><b>Definition</b>: {definition.definition}</div> <br></br>
                 {definition.synonyms &&
                     <span><b>Synonyms</b>: {definition.synonyms.map(synonym => <span>{synonym}</span>)}</span>
                 }
-            </Stack>
+           </Container>
           )}
       </div>
     </div>
