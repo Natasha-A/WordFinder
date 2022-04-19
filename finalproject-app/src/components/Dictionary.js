@@ -6,7 +6,7 @@ import { BsArrowLeftShort } from "react-icons/bs";
 import { BsFillBookmarkFill } from "react-icons/bs";
 import { BsPlayFill } from "react-icons/bs"
 import Button from 'react-bootstrap/Button';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner';
 
@@ -82,6 +82,8 @@ const Dictionary=({bookmarks,addBookmark, removeBookmark}) => {
 
   return (
     <div>
+      <DisplayInfo/>
+
         <Stack className="justify-content-between pb-3" direction="horizontal">
           <Button className="customButton" Style="font-size:2.5em" ><BsArrowLeftShort onClick={() => {navigate('../')}}/></Button>
 
@@ -127,6 +129,17 @@ const Dictionary=({bookmarks,addBookmark, removeBookmark}) => {
   );
 }
 
+function DisplayInfo() {
+  const { word } = useParams(); // get word from search request
+  const navigate = useNavigate(); // navigate using back arrow 
+
+  return (
+    <div>
+        <Button className="customButton mt-1" Style="font-size:1.2em; background-color:#9078D6;" onClick={() => {navigate(`/search/${word}`)}}>Dictionary</Button>
+      <Button className="customButton mt-1" Style="font-size:1.2em; background-color:#9078D6;"  onClick={() => {navigate(`/search/${word}/thesaurus`)}}>Thesaurus</Button>  
+    </div>
+  )
+}
 
 export default Dictionary;
 //comment

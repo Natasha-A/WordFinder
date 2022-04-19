@@ -120,8 +120,16 @@ section {
 .subtitle {
   font-weight: 800;
   text-transform: capitalize;
+  color: #949396;
 }
 
 .bookmarks:hover {
   color:#cabcf7;
+}
+
+.partSpeech {
+  text-transform: capitalize;
+  margin-top: 0.5em;
+  font-weight: 600;
+
 }

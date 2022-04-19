@@ -7,6 +7,7 @@ import Thesaurus from './components/Thesaurus.js'; // for synonyms
 import Container from 'react-bootstrap/Container';
 import './styles.scss';
 import {useState, useEffect} from 'react';
+import DisplayInfo from './components/DisplayInfo';
 
 function App() {
 
@@ -36,9 +37,9 @@ function App() {
       <Container className="xs-12 sm-8 md-5 lg-3 m-12 .container-lg mt-2" Style="width: 70%;">
       <Routes>
           <Route path='/' element={<Homepage recentBookmarks={JSON.stringify(bookmarks)}/>}/>
-           <Route exact path='/bookmarks' element={<Bookmarks bookmarks={bookmarks} />} />
-            <Route path="/search/:word" element={<Dictionary bookmarks={bookmarks} addBookmark={addBookmark} removeBookmark={removeBookmark}/>}/>
-            <Route path='/synonyms/:word' element={<Thesaurus />} /> 
+           <Route path='/bookmarks' element={<Bookmarks bookmarks={bookmarks} />} />
+            <Route path='/search/:word' element={<Dictionary bookmarks={bookmarks} addBookmark={addBookmark} removeBookmark={removeBookmark}/>}/>
+            <Route path='/search/:word/thesaurus' element={<Thesaurus />} /> 
         </Routes>
         </Container>
       </Container>

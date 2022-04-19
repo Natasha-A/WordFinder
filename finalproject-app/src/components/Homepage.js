@@ -12,143 +12,162 @@ import { Link } from 'react-router-dom';
 import Bookmarks from "./Bookmarks";
 //import moment from "moment";
 
-function Homepage( { recentBookmarks }) {
-  {/*useState for word input field rendering*/}
+function Homepage({ recentBookmarks }) {
+  {/*useState for word input field rendering*/ }
   const [word, setWord] = useState("");
-  const [wordOfDay, setWordOfDay] = useState("");
-  const [defWOD, setDefWOD] = useState("");
+  const [wordOfDay, setWordOfDay] = useState([]);
+  const [wdDef, setwdDef] = useState([]);
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
   const handleSubmit = (event) => {
-  event.preventDefault(); 
-  // prevents from refreshing screen
+    event.preventDefault();
+    // prevents from refreshing screen
 
-  // error checking for word input 
-  // i.e.) check if word exists and has no spaces  
-  const trimmedWord = word.trim().toLowerCase();
-  if (!trimmedWord || (trimmedWord.split(' ').length > 1)) return;
-  navigate(`/search/${trimmedWord}`); // push the value to defintions comp
+    // error checking for word input 
+    // i.e.) check if word exists and has no spaces  
+    const trimmedWord = word.trim().toLowerCase();
+    if (!trimmedWord || (trimmedWord.split(' ').length > 1)) return;
+    navigate(`/search/${trimmedWord}`); // push the value to defintions comp
 
   }
 
   const onSynonyms = (event) => { // for synonyms search
-    event.preventDefault(); 
+    event.preventDefault();
     const trimmedWord = word.trim().toLowerCase();
     if (!trimmedWord || (trimmedWord.split(' ').length > 1)) return;
-    navigate(`/synonyms/${trimmedWord}`); 
+    navigate(`/synonyms/${trimmedWord}`);
   }
 
   // display recent bookmarks (i.e. last 3)
   const jsonText = JSON.parse(recentBookmarks);
   const jsonArray = Object.keys(jsonText).slice(-3);
 
+  {/* Word Generator Component */ }
 
-  // fetch word of day API 
+  // fetch word from API
   const fetchWordDay = async () => {
-      try {
-        const resp = await axios.get(`https://random-word-api.herokuapp.com/word`);
-        setWordOfDay(resp.data[0]);
-        console.log(wordOfDay);
+    try {
+      const resp = await axios.get(`https://random-word-api.herokuapp.com/word`);
+      setWordOfDay(resp.data);
 
-      } catch(err) {
-        console.log(err);
-      }
-
-      // try {
-      //   const resp = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordOfDay}`);
-      //   setDefWOD(resp.data);
-        
-      //   console.log(defWOD);
-      // } catch(err) {
-      //   console.log(err);
-        
-      // }
+    } catch (err) {
+      console.log(err);
     }
+  }
 
-
+  // update word of day definitions 
+  function wordOfDayUpdate() {
+    fetchWordDay();
+    console.log(wordOfDay)
     const fetchWordDesc = async () => {
       try {
         const resp = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordOfDay}`);
-        setDefWOD(resp.date[0]);
-        console.log(defWOD);
-      } catch(err) {
-        console.log(err);
-        
+        console.log(resp.data)
+        setwdDef(resp.data);
+        setError("");          
+
+      } catch (err) {
+        console.log(wdDef);
+        setError(err.message);          
       }
     }
+    fetchWordDesc();
+  }
 
-
-function fetchDefintion() {
-  fetchWordDay();
-}
+  function display() {
+    var output = "";
+    if (error === "Request failed with status code 404") {
+      output = "Sorry, no definition found.";
+      return (
+        <div>
+          <div className="pb-1 subtitle" Style="font-size:1.3em;color:">
+            {wordOfDay}
+          </div>          
+          <div Style="color:#949396; font-size:1.1em">{output}</div>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <div className="subtitle" Style="font-size:1.3em;">
+            {wordOfDay}
+          </div>
+          {wdDef.map((def, idx) => 
+            <Fragment key={idx}>
+                {def.meanings.map(meaning =>
+                  <div>
+                    <Container Style="color: #949396; align-items: center; background-color: white;" key={Math.random()}>
+                      <div class="partSpeech">{meaning.partOfSpeech}</div>
+                      <div>{meaning.definitions.map((definition,idx) => 
+                          <div key={definition.definition}>
+                              {meaning.definitions.length > 1 && `${idx +1}. `}
+                              {definition.definition}
+                          </div>
+                        )}
+                        </div>
+                    </Container>
+                  </div>
+                )}
+            </Fragment>
+          )}       
+        </div>
+      )
+    }
+  }
 
   return (
-     <div>
-          <img src="/assets/bookIcon.png"/>
-          {/* Title */}
-          <h1 className="mb-3"Style="color:white"> Word Finder </h1>
+    <div>
+      <img src="/assets/bookIcon.png" />
+      {/* Title */}
+      <h1 className="mb-3" Style="color:white"> Word Finder </h1>
 
-          {/* Textbox Form*/}
-          <Stack direction="horizontal" gap={0}>
-            <Button variant="secondary shadow-sm" aria-pressed="false" type="submit" onClick={handleSubmit} ><BsSearch /></Button>
+      {/* Textbox Form*/}
+      <Stack direction="horizontal" gap={0}>
+        <Button variant="secondary shadow-sm" aria-pressed="false" type="submit" onClick={handleSubmit} ><BsSearch /></Button>
 
-            <Form Style="width:100%" onSubmit={handleSubmit}>
-              <Form.Control className="input me-auto shadow" placeholder="Type your word here..." value={word} onChange={event => setWord(event.target.value)}/>
-            </Form>
-            
-            <button onClick={onSynonyms}>Syn</button> 
+        <Form Style="width:100%" onSubmit={handleSubmit}>
+          <Form.Control className="input me-auto shadow" placeholder="Type your word here..." value={word} onChange={event => setWord(event.target.value)} />
+        </Form>
+      </Stack>
 
-          </Stack>
+      {/* Box Container*/}
+      <Stack direction="vertical" gap={2} Style="height: vh;">
+        <section className=" border p-4 mt-4 h-50 font-weight-bolder shadow">
 
-          {/* Box Container*/}
-          <Stack direction="vertical" gap={2} Style="height: vh;">  
-          <section className=" border p-4 mt-4 h-50 font-weight-bolder shadow">
+          {/******* Word of Day Comp ********/}
 
-            {/******* Word of Day Comp ********/}
+          {/* Map out array of elements */}
+          <h2 Style="pb-1 subtitle">Word of Day</h2>
+          
+          {display()}
+          
+          <div Style="display: flex; justify-content: space-between">
+            <div></div>
+            <Button className="customButton mt-1" Style="font-size:1.2em; background-color:#9078D6;" onClick={() => { wordOfDayUpdate() }}>Generate Word</Button>
+          </div>
+        </section>
+        {/* Bookmarks */}
+        <section className="border p-4 mt-4 mb- h-50 font-weight-bold font-weight-bolder shadow ">
+          <h2>Recent Bookmarks</h2>
 
-            {/* Map out array of elements */}
-            <h2 Style="color: #9078D6">Word of Day</h2>
-
-            <div>
-              <b Style="font-size:20px">{wordOfDay}</b>
-            </div>
-
-                {/* display def associate with random word */}
-               <p>{defWOD.word}</p>
-
-                {/* Example */}
-              {<div className="border-start border-3 " Style="margin-left:10px; padding-left:10px;">
-                <p>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è considerato il testo segnaposto standard sin dal sedicesimo secolo, quando un anonimo tipografo prese una cassetta di caratteri e li assemblò per preparare un testo campione. È sopravvissuto non sol.</p>
-              </div> }
-              <div Style="display: flex; justify-content: space-between">
-               <div></div>
-              <Button className="customButton mt-1" Style="font-size:1.2em; background-color:#9078D6;" onClick={() => {fetchWordDay()}}>Generate Word</Button>
-              <Button className="customButton mt-1" Style="font-size:1.2em; background-color:#9078D6;" onClick={() => {fetchWordDesc()}}>Generate Definition</Button>
-             </div>
-            </section>
-            {/* Bookmarks */}
-            <section className="border p-4 mt-4 mb- h-50 font-weight-bold font-weight-bolder shadow ">
-            <h2>Recent Bookmarks</h2>
-
-             {/* Map out array of elements */}
-             { jsonArray.map(word => 
-             <Link Style="text-decoration:none; color:#b19fe8;" to={`/search/${word}`}>
-               <Container>
-                 <ul>
-                 <li><h5 class="bookmarks" Style="text-transform: capitalize; margin-bottom:0.4em;font-size:1.3em; font-weight:600">{word}</h5></li>
-                 </ul>
-               </Container>
-               </Link>
-             )}
-             <div Style="display: flex; justify-content: space-between">
-               <div></div>
-              <Link to="/bookmarks">
+          {/* Map out array of elements */}
+          {jsonArray.map(word =>
+            <Link Style="text-decoration:none; color:#b19fe8;" to={`/search/${word}`}>
+              <Container>
+                  <h5 class="bookmarks" Style="text-transform: capitalize; margin-bottom:0.4em;font-size:1.3em; font-weight:600">{word}</h5>
+              </Container>
+            </Link>
+          )}
+          <div Style="display: flex; justify-content: space-between">
+            <div></div>
+            <Link to="/bookmarks">
               <Button className="customButton mt-1" Style="font-size:1.2em; background-color:#9078D6;">View All</Button>
-              </Link>
-             </div>
-            </section>
-          </Stack>
-      </div>
+            </Link>
+          </div>
+        </section>
+      </Stack>
+    </div>
   )
 }
 
