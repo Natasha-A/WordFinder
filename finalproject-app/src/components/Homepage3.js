@@ -10,14 +10,16 @@ import { useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Bookmarks from "./Bookmarks";
+import { AxiosProvider, Request, Get, Delete, Head, Post, Put, Patch, withAxios } from 'react-axios'
+
 //import moment from "moment";
 
 function Homepage({ recentBookmarks }) {
   {/*useState for word input field rendering*/ }
   const [word, setWord] = useState("");
-  const [wordOfDay, setWordOfDay] = useState([]);
-  const [wdDef, setwdDef] = useState([]);
-  const [error, setError] = useState("");
+  const [wordOfDay, setWordOfDay] = useState("hello");
+  const [button, setButton] = useState("");
+  const [wdDefintions, setWDDefintions] = useState([]);
 
   const navigate = useNavigate();
   const handleSubmit = (event) => {
@@ -45,37 +47,70 @@ function Homepage({ recentBookmarks }) {
 
   {/* Word Generator Component */ }
 
-  // fetch word from API
-  const fetchWordDay = async () => {
-    try {
-      const resp = await axios.get(`https://random-word-api.herokuapp.com/word`);
-      setWordOfDay(resp.data);
+  useEffect(()=> {
+    fetch("https://random-word-form.herokuapp.com/random/noun").then(x=>x.json()).then(json=>{
+      setWordOfDay(json)
+      });
+      console.log(wordOfDay);
+      WdDisplay()
+  }, [button]); 
 
-    } catch (err) {
-      console.log(err);
-    }
+  const toggleButton = () => {
+    var toggle = !button;
+     setButton(toggle);
   }
 
+  function WdDisplay() {
+    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordOfDay}`).then(x=>x.json()).then(json=>{
+        setWDDefintions(json);
+        console.log(wdDefintions);
+      });
 
-  useEffect(() => {
-      // fetch word from API
-  const fetchWordDay = async () => {
-    try {
-      const resp = await axios.get(`https://random-word-form.herokuapp.com/random/noun`);
-      setWordOfDay(resp.data);
+      return (
+        <div>
+        <div className="subtitle" Style="font-size:1.3em;">
+        {wordOfDay === undefined ? "unknown" : wordOfDay[0].word}
+        </div>   
+      </div>
+      )
+  }
 
-    } catch (err) {
-      console.log(err);
+  function WordOfDay() {
+    var state = "";
+    return (
+    <div>
+  <Get url="https://random-word-form.herokuapp.com/random/noun" param={{}}>
+    
+    {
+      (error, response, isLoading, makeRequest, axios) => {
+        if (error) {
+          return (
+          <div>
+            <div>There was an error</div>
+            <button onClick={makeRequest}>Generate Word</button>
+            </div>)
+        } else if (isLoading) {
+          return <div>Loading...</div>
+        } else if (response != undefined) {
+          state = response.data;
+          return (
+            <div>
+              <div>{state}</div>
+              <button onClick={makeRequest}>Generate Word</button>
+          </div>)
+        } else if (makeRequest) {
+          
+        }else {
+          return <div>Making a request...</div>
+        }
     }
   }
-  fetchWordDay();
-  },[]);
+  </Get>
+    </div>
+  )
+  }
 
-  // update word of day definitions 
-  function wordOfDayUpdate() {
-    fetchWordDay();
-    console.log(wordOfDay)
-    const fetchWordDesc = async () => {
+  /*const fetchWordDesc = async () => {
       try {
         const resp = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordOfDay}`);
         console.log(resp.data)
@@ -86,53 +121,7 @@ function Homepage({ recentBookmarks }) {
         console.log(wdDef);
         setError(err.message);          
       }
-    }
-    fetchWordDesc();
-  }
-
-  function display() {
-    var output = "";
-    if (error === "Request failed with status code 404") {
-      output = "Sorry, no definition found.";
-      return (
-        <div> 
-          <div className="subtitle" Style="font-size:1.3em;">
-            Unknown
-          </div>
-          <div Style="color:#949396; font-size:1.1em">{output}</div>
-          
-        </div>
-      )
-    } else if (error === "Cannot read properties of undefined (reading 'word')")  {
-        console.log("error caught") 
-    } else {
-      return (
-        <div>
-          <div className="subtitle" Style="font-size:1.3em;">
-          {wordOfDay === undefined ? "unknown" : wdDef[0].word}
-          </div>
-          {wdDef.map((def, idx) => 
-            <Fragment key={idx}>
-                {def.meanings.map(meaning =>
-                  <div>
-                    <Container Style="color: #949396; align-items: center; background-color: white;" key={Math.random()}>
-                      <div class="partSpeech">{meaning.partOfSpeech}</div>
-                      <div>{meaning.definitions.map((definition,idx) => 
-                          <div key={definition.definition}>
-                              {meaning.definitions.length > 1 && `${idx +1}. `}
-                              {definition.definition}
-                          </div>
-                        )}
-                        </div>
-                    </Container>
-                  </div>
-                )}
-            </Fragment>
-          )}       
-        </div>
-      )
-    }
-  }
+    } */
 
   return (
     <div>
@@ -154,15 +143,15 @@ function Homepage({ recentBookmarks }) {
         <section className=" border p-4 mt-4 h-50 font-weight-bolder shadow">
 
           {/******* Word of Day Comp ********/}
-
           {/* Map out array of elements */}
           <h2 Style="pb-1 subtitle">Word of Day</h2>
-          
-          {display()}
-          
+          <div>
+
+          </div>
+                    
           <div Style="display: flex; justify-content: space-between">
             <div></div>
-            <Button className="customButton mt-1" Style="font-size:1.2em; background-color:#9078D6;" onClick={() => { wordOfDayUpdate() }}>Generate Word</Button>
+            <Button className="customButton mt-1" Style="font-size:1.2em; background-color:#9078D6;" onClick={() => {toggleButton()}}>Generate Word</Button>
           </div>
         </section>
         {/* Bookmarks */}
