@@ -134,9 +134,10 @@ function DisplayInfo() {
   const navigate = useNavigate(); // navigate using back arrow 
 
   return (
-    <div>
-        <Button className="customButton mt-1" Style="font-size:1.2em; background-color:#9078D6;" onClick={() => {navigate(`/search/${word}`)}}>Dictionary</Button>
-      <Button className="customButton mt-1" Style="font-size:1.2em; background-color:#9078D6;"  onClick={() => {navigate(`/search/${word}/thesaurus`)}}>Thesaurus</Button>  
+     <div>
+ <Button className="customButton2 mt-1" Style="   border-radius: 20px 0px 0px 20px;
+font-size:1.2em;" onClick={() => {navigate(`/search/${word}`)}}>Dictionary</Button>
+      <Button className="customButton2 mt-1 " Style="font-size:1.2em; background-color:#8562f0; border-radius: 0px 20px 20px 0px"  onClick={() => {navigate(`/search/${word}/thesaurus`)}}>Thesaurus</Button>  
     </div>
   )
 }

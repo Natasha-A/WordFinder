@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Bookmarks from "./Bookmarks";
 import { AxiosProvider, Request, Get, Delete, Head, Post, Put, Patch, withAxios } from 'react-axios'
+import moment from 'moment';
 
 //import moment from "moment";
 
@@ -21,6 +22,7 @@ function Homepage({ recentBookmarks }) {
   const [button, setButton] = useState("");
   const [wdDef, setwdDef] = useState([]);
   const [error, setError] = useState("");
+  const [date, setDate] = useState("");
 
 
   const navigate = useNavigate();
@@ -31,7 +33,16 @@ function Homepage({ recentBookmarks }) {
     // error checking for word input 
     // i.e.) check if word exists and has no spaces  
     const trimmedWord = word.trim().toLowerCase();
-    if (!trimmedWord || (trimmedWord.split(' ').length > 1)) return;
+    if ((trimmedWord.split(' ').length > 1)) { return (
+      alert("No spaces allowed")
+
+    ); }
+    else if (!trimmedWord) {
+      return (
+        alert("You must enter a word")
+  
+      ); 
+    }
     navigate(`/search/${trimmedWord}`); // push the value to defintions comp
 
   }
@@ -48,15 +59,21 @@ function Homepage({ recentBookmarks }) {
   const jsonArray = Object.keys(jsonText).slice(-3);
 
   {/* Word Generator Component */ }
+  function getDate() {
+    var currentDay = moment().format("MMM Do YYYY");
+    setDate(currentDay);
+    var nextDay = moment().add(1, 'days').format("MMM Do YYYY");
+
+    // set date to current date 
+    localStorage.setItem("cDate", currentDay);
+    setDate(localStorage.getItem("cDate"));
+    console.log(localStorage.getItem("cDate"));
+  }
 
   useEffect(()=> {
       updatedFetchCall()
     }, [button]); 
 
-    useEffect(()=> {
-        updatedFetchCall()
-
-      }, []); 
 
   const toggleButton = () => {
     var toggle = !button;
@@ -81,7 +98,9 @@ function Homepage({ recentBookmarks }) {
       return (
         <div>
           <div className="subtitle" Style="font-size:1.3em;">
-          {wordOfDay === undefined ? "Unknown" : wordOfDay}
+          <Link Style="text-decoration:none; color:#b19fe8;" to={`/search/${word}`}>
+            {wordOfDay === undefined ? "Unknown" : wordOfDay}
+          </Link>
           </div>
           {wdDef.map((def, idx) => 
             <Fragment key={idx}>
@@ -144,10 +163,11 @@ var post;
       {/* Textbox Form*/}
       <Stack direction="horizontal" gap={0}>
         <Button variant="secondary shadow-sm" aria-pressed="false" type="submit" onClick={handleSubmit} ><BsSearch /></Button>
-
         <Form Style="width:100%" onSubmit={handleSubmit}>
           <Form.Control className="input me-auto shadow" placeholder="Type your word here..." value={word} onChange={event => setWord(event.target.value)} />
         </Form>
+        {handleSubmit}
+
       </Stack>
 
       {/* Box Container*/}
