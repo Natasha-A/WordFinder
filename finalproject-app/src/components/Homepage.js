@@ -98,7 +98,7 @@ function Homepage({ recentBookmarks }) {
       return (
         <div>
           <div className="subtitle" Style="font-size:1.3em;">
-          <Link Style="text-decoration:none; color:#b19fe8;" to={`/search/${word}`}>
+          <Link Style="text-decoration:none; color:#b19fe8;" to={`/search/${wordOfDay}`}>
             {wordOfDay === undefined ? "Unknown" : wordOfDay}
           </Link>
           </div>
