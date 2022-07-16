@@ -24,5 +24,10 @@ Culminating project for CPAN144: Advanced Front-End Programming. Our team built 
 * Collaboration and task distribution, ensuring team is able to meet deadlines and conducting daily code reviews to discuss and resolve errors 
 
 ## Sample Views 
+![Home page](/finalproject-app/Sample%20Views/view1.png)
+![Dictionary page](/finalproject-app/Sample%20Views/view2.png)
+![Bookmarks page](/finalproject-app/Sample%20Views/view3.png)
+
+
 
 
